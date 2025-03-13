@@ -33,12 +33,15 @@ nav a {
 }
 
 .btn {
-  background-color: #036ffc;
+  background-color: #007BFF;
+  display: inline-block;
   color: white;
   padding: 10px 20px;
   font-size: 20px;
   border: none;
+  margin-top: 20px;
   border-radius: 5px;
+  text-decoration: none;
   cursor: pointer;
   margin-top: 50px;
 }

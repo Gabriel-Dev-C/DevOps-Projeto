@@ -1,10 +1,13 @@
 @mixin button($color, $size) {
     background-color: $color;
+    display: inline-block;
     color: white;
     padding: 10px 20px;
     font-size: $size;
     border: none;
+    margin-top: 20px;
     border-radius: 5px;
+    text-decoration: none;
     cursor: pointer;
 }
 
@@ -43,7 +46,7 @@ nav a {
 }
 
 .btn {
-    @include button(#036ffc, 20px);
+    @include button(#007BFF, 20px);
     margin-top: 50px;
 }
 
