@@ -1,0 +1,10 @@
+name: test-workflow
+run-name: Primeiro Workflow
+on: [push]
+
+jobs:
+    mensagem-boas-vindas:
+        runs-on: macos-latest
+        steps:
+            - name: Display Mensagem
+              run: echo "Hello World!"
