@@ -6,7 +6,7 @@ O foco do projeto é desenvolver um website responsivo com frameworks como SASS,
 
 
 <p align="center">
-<img src="src/images/.png" alt="Protótipo do projeto.">
+<img src="./src/images/capa-readme.png" alt="Protótipo do projeto.">
 </p>
 
 ## Meta
