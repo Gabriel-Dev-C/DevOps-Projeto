@@ -4,6 +4,7 @@ describe('Navegando na tabela de cursos', () => {
     })
 
     it ('Filtrar cursos por nome', () => {
+        // Verifica se a tabela possui 3 linhas inicialmente
         cy.get('input[type=search]').type('Ciências da computação')
         cy.get('table tbody tr').should('have.length', 1)
     })
