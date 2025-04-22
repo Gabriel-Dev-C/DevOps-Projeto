@@ -4,7 +4,7 @@ run-name: Build and analyze
 on:
   push:
     branches:
-      - master
+      - dev
  
 jobs:
   build:
