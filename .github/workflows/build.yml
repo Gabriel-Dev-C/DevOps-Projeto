@@ -2,9 +2,9 @@ name: Build
 run-name: Build and analyze
 
 on:
-  # push:
-  #   branches:
-  #     - dev
+  push:
+     branches:
+       - master
   workflow_dispatch:
  
 jobs:
