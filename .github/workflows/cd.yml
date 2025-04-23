@@ -1,4 +1,4 @@
-name: cd
+name: CD
 run-name: Continuous Deliverence
 on:
     pull_request:
@@ -28,11 +28,11 @@ jobs:
                 context: .
                 file: ./Dockerfile
                 push: true
-                tags: Gabriel-Dev-C/devops-projeto:latest
+                tags: gabrielchabaribery/devops-projeto:latest
 
             - name: Azure WebApp
               uses: Azure/webapps-deploy@v3.0.1
               with:
                 app-name: chabaribery-devops
                 publish-profile: ${{ secrets.PUBLISH_PROFILE }}
-                image: Gabriel-Dev-C/devops-projeto:latest
+                image: gabrielchabaribery/devops-projeto:latest
