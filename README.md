@@ -17,6 +17,7 @@
     </ul>
     <li><a href="#perfil">Perfil</a></li>
     <li><a href="#mapa">Mapa do Projeto</a></li>
+    <li><a href="#contributing">Contributing</a></li>
 </ul>
 
 <p id="descricao"></p>
@@ -42,6 +43,19 @@ O foco do projeto é desenvolver um website responsivo com frameworks como SASS 
 ## Perfil
 
 [Meu perfil do Github](https://github.com/Gabriel-Dev-C/)
+
+<p id="mapa"></p>
+
+## Mapa do Projeto
+
+```.
+├───.github\workflows       //Pasta com os arquivos yml para a execução do CI e do CD
+└───cypress        //Pasta com os arquivos de configuração do cypress
+└───src            //Pasta com os arquivos do site
+    └───images      //Pasta com as imagens do README.md
+```
+
+<p id="contributing"></p>
 
 ## Contributing
 
