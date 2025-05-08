@@ -25,6 +25,11 @@ nav a {
   padding: 10px 20px;
 }
 
+nav a:hover {
+  background-color: #555;
+  text-decoration: underline;
+}
+
 .container {
   width: 80%;
   margin: auto;
