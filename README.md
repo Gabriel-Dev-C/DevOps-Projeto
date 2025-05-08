@@ -2,7 +2,7 @@
 
 > Página web desenvolvida para estudos e compreensão de tecnologias utilizadas no mercado.
 
-O foco do projeto é desenvolver um website responsivo com frameworks como SASS, para desenvolvimento completo do projeto, até seu deploy na fase final. Além disso é utilizado cypress para automação de testes de uso da página.
+O foco do projeto é desenvolver um website responsivo com frameworks como SASS e DataTables, para desenvolvimento completo do projeto, até seu deploy na fase final. Além disso é utilizado cypress para automação de testes de uso da página.
 
 
 <p align="center">
@@ -11,7 +11,7 @@ O foco do projeto é desenvolver um website responsivo com frameworks como SASS,
 
 ## Meta
 
-Gabriel C. Martins – gacmartins@gmail.com
+Projeto desenvolvido em equipe.
 
 [Meu perfil do Github](https://github.com/Gabriel-Dev-C/)
 
