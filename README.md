@@ -6,7 +6,7 @@
 <img src="./src/images/capaRM.png" alt="Protótipo do projeto.">
 </p>
 
-## Menu
+## 📂 Menu
 
 <ul>
     <li><a href="#descricao">Meta e Descrição</a></li>
@@ -22,7 +22,7 @@
 
 <p id="descricao"></p>
 
-## Meta
+## 🎯 Meta e Descrição
 
 *Projeto desenvolvido em equipe.*
 > Página web desenvolvida para estudos e compreensão de tecnologias utilizadas no mercado.
@@ -30,15 +30,15 @@ O foco do projeto é desenvolver um website responsivo com frameworks como SASS 
 
 <p id="funcionamento"></p>
 
-## Funcionamento
+## ⚙️ Funcionamento
 
 <p id="ci"></p>
 
-### Funcinamento do CI
+### 🔁 Funcinamento do CI
 
 <p id="cd"></p>
 
-### Funcionamento do CD
+### 🚀 Funcionamento do CD
 
 <p id="perfil"></p>
 
@@ -48,7 +48,7 @@ O foco do projeto é desenvolver um website responsivo com frameworks como SASS 
 
 <p id="mapa"></p>
 
-## Mapa do Projeto
+## 🗺️  Mapa do Projeto
 
 ```.
 ├───.github\workflows       //Pasta com os arquivos yml para a execução do CI e do CD
@@ -59,7 +59,7 @@ O foco do projeto é desenvolver um website responsivo com frameworks como SASS 
 
 <p id="contributing"></p>
 
-## Contributing
+## 🤝 Contributing
 
 1. Fork it (<https://github.com/Gabriel-Dev-C/DevOps-Projeto/fork>)
 2. Create your feature branch (`git checkout -b feature/fooBar`)
