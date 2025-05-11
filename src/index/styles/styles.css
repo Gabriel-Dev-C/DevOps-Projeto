@@ -31,6 +31,27 @@ nav a {
   padding: 20px;
   text-align: center;
 }
+.container2 {
+  width: 80%;
+  margin: auto;
+  padding: 20px;
+  text-align: left;
+}
+
+.formulario-contato {
+  background: #fff;
+  padding: 30px;
+  border-radius: 8px;
+  box-shadow: 0 0 10px rgba(0,0,0,0.1);
+  width: 100%;
+  max-width: 400px;
+  text-align: center;
+  position: fixed;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+}
+
 
 .btn {
   background-color: #007BFF;
@@ -53,4 +74,12 @@ footer {
   width: 100%;
   bottom: 0;
   padding: 10px 0 0 0;
-}/*# sourceMappingURL=styles.css.map */
+} 
+
+input[type="email"] {
+  width: 100%;
+  padding: 10px;
+  margin-bottom: 15px;
+  border: 1px solid #ccc;
+  border-radius: 5px;
+}
