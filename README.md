@@ -53,7 +53,7 @@ Página com formulário simples de contato solicitando e-mail. Objetivo: permiti
 
 <p id="ci"></p>
 
-### 🔁 Funcinamento do CI
+### 🔁 Funcionamento do CI
 
 Um workflow do GitHub Actions chamado Build, com o nome de execução Continuous Integration.
 
