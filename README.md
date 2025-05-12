@@ -37,6 +37,20 @@ O foco do projeto é desenvolver um website responsivo com frameworks como SASS 
 
 ## ⚙️ Funcionamento
 
+O site “Front End DevOps” tem como objetivo educar sobre os conceitos e práticas DevOps, com foco em CI/CD (Integração Contínua e Entrega Contínua). Ele é composto por quatro páginas principais (HTMLs distintos), com navegação interna entre elas via barra de menu (navbar). Todas compartilham uma estrutura comum: cabeçalho, navegação, conteúdo principal e rodapé.
+
+index.html (Página Inicial):
+Conteúdo principal: Introdução ao tema Front End DevOps. Possui um título, subtítulo e uma breve explicação sobre CI/CD. Um botão leva o usuário para a página "Sobre". Simples, com foco em boas-vindas e navegação inicial.
+
+Sobre.html:
+Explica detalhadamente o que é DevOps, com ênfase em cultura, automação e agilidade. Contém uma tabela interativa com DataTables listando tecnologias e conhecimentos importantes para DevOps, como linguagens, ferramentas, CI/CD, monitoramento, etc. Usa Bootstrap 5 e DataTables para estilização e interatividade (paginação automática da tabela). Apresenta conteúdo mais denso e técnico.
+
+CICD.html:
+Explica as diferenças e objetivos de CI (Continuous Integration) e CD (Continuous Delivery/Deployment). Traz um conteúdo textual descritivo e educativo. Não tem elementos interativos, mas é bem detalhado conceitualmente.
+
+Contato.html:
+Página com formulário simples de contato solicitando e-mail. Objetivo: permitir que o usuário envie seus dados de contato. 
+
 <p id="ci"></p>
 
 ### 🔁 Funcinamento do CI
@@ -78,6 +92,20 @@ Sendo assim, o workflow automatiza a integração contínua (CI) do projeto. Sem
 <p id="cd"></p>
 
 ### 🚀 Funcionamento do CD
+
+Este é um fluxo de trabalho do GitHub Actions para um processo de Continuous Delivery (CD). Ele automatiza a entrega de uma aplicação quando há uma pull request na branch master, ou quando o fluxo é acionado manualmente via workflow_dispatch.
+
+Definições iniciais, name: CD → Nome do workflow. run-name: Continuous Deliverance → Nome de execução. on: → Define os gatilhos: pull_request para a branch master → Executa quando há um pull request. workflow_dispatch → Permite execução manual.
+
+Configuração do Job deploy, runs-on: ubuntu-latest → Executa o workflow em um ambiente Ubuntu. Checkout do código (actions/checkout@v4): Obtém o código do repositório para executar ações sobre ele. fetch-depth: 0 → Obtém todo o histórico de commits.
+
+Login no Docker Hub (docker/login-action@v3.4.0): Usa credenciais armazenadas em GitHub Secrets (DOCKER_USER e DOCKER_PASSWORD). Construção e Push da Imagem Docker (docker/build-push-action@v6.15.0): context: . → Usa o diretório atual como contexto. file: ./Dockerfile → Especifica o Dockerfile. push: true → Envia a imagem para o Docker Hub. tags: gabrielchabaribery/devops-projeto:latest → Nomeia e marca a imagem. 
+
+Implantação no Azure WebApp (Azure/webapps-deploy@v3.0.1): app-name: chabaribery-devops → Nome da aplicação no Azure. publish-profile: ${{ secrets.PUBLISH_PROFILE }} → Usa credenciais armazenadas para autenticação. images: gabrielchabaribery/devops-projeto:latest → Utiliza a imagem Docker recém-enviada para o deploy.
+
+Simplificando, um pull request na master ou uma execução manual inicia o workflow. O código é baixado. Autenticação no Docker Hub para permitir publicação de imagem. O Docker Image é construído e enviado para o Docker Hub. A aplicação é implantada no Azure WebApp com a nova imagem Docker. 
+
+Isso garante que qualquer alteração enviada seja automaticamente preparada para produção com CI/CD, otimizando processos de desenvolvimento e entrega.
 
 <p id="perfil"></p>
 
