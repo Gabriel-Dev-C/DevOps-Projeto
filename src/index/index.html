@@ -5,6 +5,37 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Front End DevOps</title>
     <link rel="stylesheet" href="./styles/styles.css">
+    <style>
+        html, body {
+            height: 100%;
+            margin: 0;
+            padding: 0;
+        }
+
+        /* O container principal ocupa o espaço restante */
+        #home {
+            display: flex;
+            flex-direction: column;
+            min-height: 100vh; /* Ocupa toda a altura da janela */
+        }
+
+        .container {
+            flex: 1; /* Faz o conteúdo ocupar o espaço disponível */
+            text-align: center;
+            padding: 20px;
+        }
+
+        /* Estilo do footer */
+        footer {
+            background-color: #333;
+            color: white;
+            text-align: center;
+            width: 100%;
+            padding: 10px 0;
+            position: absolute;
+            bottom: 0;
+        }
+    </style>
 </head>
 <body>
     <Section id="home">

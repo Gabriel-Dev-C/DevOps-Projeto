@@ -1,5 +1,5 @@
 name: CD
-run-name: Continuous Deliverence
+run-name: Continuous Delivery
 on:
     pull_request:
         branches:
