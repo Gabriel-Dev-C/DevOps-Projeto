@@ -45,7 +45,7 @@ jobs:
       # Inicia aplicação estática com 'serve'
       - name: Iniciar aplicação em background
         run: |
-          npx serve src -l 5500 &
+          npx serve src/index -l 5500 &
 
       # Aguarda a aplicação subir
       - name: Aguardar aplicação disponível

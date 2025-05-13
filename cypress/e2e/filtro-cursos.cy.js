@@ -1,6 +1,6 @@
 describe('Navegando na tabela da aba sobre', () => {
     beforeEach(() => {
-        cy.visit('http://127.0.0.1:5500/src/index/Sobre.html')
+        cy.visit('http://127.0.0.1:5500/index/Sobre.html')
     })
 
     it('Verificar ordenação reversa e alfabética na tabela', () => {
