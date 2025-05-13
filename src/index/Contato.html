@@ -5,33 +5,68 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Front End DevOps</title>
     <link rel="stylesheet" href="./styles/styles.css">
+    <style>
+        html, body {
+            height: 100%;
+            margin: 0;
+            padding: 0;
+        }
+
+        /* O container principal ocupa o espaço restante */
+        #Contato {
+            display: flex;
+            flex-direction: column;
+            min-height: 100vh; /* Ocupa toda a altura da janela */
+        }
+
+        .formulario-contato {
+            flex: 1; /* Faz o formulário ocupar o espaço disponível */
+            text-align: center;
+            padding: 20px;
+            display: flex; /* Adiciona flexbox para centralizar o conteúdo */
+            flex-direction: column; /* Organiza o conteúdo em coluna */
+            align-items: center; /* Centraliza horizontalmente */
+            justify-content: center; /* Centraliza verticalmente */
+        }
+
+        .formulario-contato button:hover {
+            background-color: #0056b3;
+        }
+
+        /* Estilo do footer */
+        footer {
+            background-color: #333;
+            color: white;
+            text-align: center;
+            width: 100%;
+            padding: 10px 0;
+        }
+    </style>
 </head>
 <body>
-    <Section id="Contato">
-    <header>
-        <h1>Front End DevOps</h1>
-        <p>Entendendo sobre o DevOps</p>
-    </header>
-    <nav id="navbar">
-        <a href="index.html">Menu</a>
-        <a href="CICD.html">CI/CD</a>
-        <a href="Sobre.html">Sobre</a>
-        <a href="Contato.html">Contato</a>
-    </nav>
-
-    <div class="formulario-contato">
-        <h2>Fale Conosco</h2>
-        <p>Informe seu e-mail e entraremos em contato.</p>
-        <form>
-          <input type="email" placeholder="Seu e-mail" required>
-          <br>
-          <button type="submit" class="btn btn-sobre">Enviar</button>
-        </form>
-      </div>
-      
-    <footer>
-        <p>&copy; 2025 Front End DevOps - Todos os direitos reservados.</p>
-    </footer>
-</Section>
+    <section id="Contato">
+        <header>
+            <h1>Front End DevOps</h1>
+            <p>Entendendo sobre o DevOps</p>
+        </header>
+        <nav id="navbar">
+            <a href="index.html">Menu</a>
+            <a href="CICD.html">CI/CD</a>
+            <a href="Sobre.html">Sobre</a>
+            <a href="Contato.html">Contato</a>
+        </nav>
+        <div class="formulario-contato">
+            <h2>Fale Conosco</h2>
+            <p>Informe seu e-mail e entraremos em contato.</p>
+            <form>
+                <input type="email" placeholder="Seu e-mail" required>
+                <br>
+                <button type="submit" class="btn btn-sobre">Enviar</button>
+            </form>
+        </div>    
+        <footer>
+            <p>&copy; 2025 Front End DevOps - Todos os direitos reservados.</p>
+        </footer>
+    </section>
 </body>
 </html>
