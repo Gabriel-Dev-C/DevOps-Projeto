@@ -32,3 +32,25 @@ jobs:
             -Dsonar.projectName=FrontEnd-DevOps
             -Dsonar.projectVersion=1.0.0
             -Dsonar.sources=.
+
+         # Instala dependências
+      - name: Setup Node.js
+        uses: actions/setup-node@v3
+        with:
+          node-version: '18'
+
+      - name: Instalar dependências
+        run: npm ci
+
+      # Inicia aplicação estática com 'serve'
+      - name: Iniciar aplicação em background
+        run: |
+          npx serve src/index -l 5500 &
+
+      # Aguarda a aplicação subir
+      - name: Aguardar aplicação disponível
+        run: npx wait-on http://localhost:5500 --timeout 60000
+
+      # Roda Cypress
+      - name: Rodar testes E2E com Cypress
+        run: npx cypress run
