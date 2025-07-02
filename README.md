@@ -123,13 +123,3 @@ Isso garante que qualquer alteração enviada seja automaticamente preparada par
 └───src            //Pasta com os arquivos do site
     └───images      //Pasta com as imagens do README.md
 ```
-
-<p id="contributing"></p>
-
-## 🤝 Contributing
-
-1. Fork it (<https://github.com/Gabriel-Dev-C/DevOps-Projeto/fork>)
-2. Create your feature branch (`git checkout -b feature/fooBar`)
-3. Commit your changes (`git commit -am 'Add some fooBar'`)
-4. Push to the branch (`git push origin feature/fooBar`)
-5. Create a new Pull Request
