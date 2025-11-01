@@ -1,7 +1,22 @@
-FROM nginx:alpine
+# Usar imagem oficial do Node.js
+FROM node:22
 
-RUN rm -rf /usr/share/nginx/html/*
+# Definir diretório de trabalho
+WORKDIR /app
 
-COPY src/index/ /usr/share/nginx/html
+# Copiar arquivos de dependências
+COPY package.json ./
 
-EXPOSE 80
+# Instalar dependências
+
+
+# Copiar código da aplicação
+COPY . .
+
+# Expor porta da aplicação
+EXPOSE 3000
+
+
+
+# Comando para iniciar a aplicação
+CMD ["node", "index.js"]
