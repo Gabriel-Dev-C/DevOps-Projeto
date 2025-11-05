@@ -1,0 +1,208 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Reservas</title>
+
+  <!-- Bootstrap 5 -->
+  <link 
+    href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css" 
+    rel="stylesheet"
+  />
+
+  <!-- Bootstrap Icons -->
+  <link 
+    rel="stylesheet" 
+    href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.11.1/font/bootstrap-icons.css"
+  />
+
+  <style>
+    body {
+      background: linear-gradient(135deg, #0d6efd, #6610f2);
+      min-height: 100vh;
+      font-family: 'Inter', sans-serif;
+      color: #fff;
+      padding-top: 50px;
+    }
+    .card {
+      border: none;
+      border-radius: 1rem;
+      box-shadow: 0 8px 20px rgba(0, 0, 0, 0.15);
+    }
+    .btn-custom {
+      transition: all 0.25s ease;
+      font-weight: 500;
+    }
+    .btn-custom:hover {
+      transform: translateY(-2px);
+      box-shadow: 0 4px 12px rgba(0, 0, 0, 0.2);
+    }
+    .list-group-item {
+      background-color: #f8f9fa;
+      color: #000;
+      border-radius: 0.5rem;
+      margin-bottom: 0.5rem;
+    }
+    select, input {
+      border-radius: 0.5rem;
+    }
+  </style>
+</head>
+
+<body>
+  <div class="container">
+    <div class="row justify-content-center">
+
+      <!-- Card principal -->
+      <div class="col-md-8 col-lg-6">
+        <div class="card p-4 bg-light">
+          <h2 class="fw-bold mb-3 text-primary text-center">Reservas de Laboratórios</h2>
+
+          <!-- Formulário de nova reserva -->
+          <div class="card mb-4 shadow-sm p-3">
+            <h5 class="fw-semibold mb-3">Nova Reserva</h5>
+            <form id="reservationForm">
+              <div class="mb-3">
+                <select id="labSelect" class="form-select" required>
+                  <option value="">Selecione um laboratório</option>
+                </select>
+              </div>
+              <div class="mb-3">
+                <input type="datetime-local" id="startAt" class="form-control" required>
+              </div>
+              <div class="mb-3">
+                <input type="datetime-local" id="endAt" class="form-control" required>
+              </div>
+              <button type="submit" class="btn btn-success w-100 btn-custom">
+                <i class="bi bi-calendar-plus me-2"></i>Reservar
+              </button>
+            </form>
+            <div id="message" class="mt-3 text-center"></div>
+          </div>
+
+          <!-- Lista de reservas -->
+          <div class="card shadow-sm p-3">
+            <h5 class="fw-semibold mb-3">Minhas Reservas</h5>
+            <ul id="reservationsList" class="list-group list-group-flush"></ul>
+          </div>
+
+          <!-- Botão de sair -->
+          <div class="mt-4 d-grid">
+            <button id="logoutBtn" class="btn btn-danger w-100 btn-custom">
+              <i class="bi bi-box-arrow-right me-2"></i>Sair
+            </button>
+          </div>
+        </div>
+      </div>
+
+    </div>
+  </div>
+
+  <!-- Bootstrap JS -->
+  <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js"></script>
+
+  <!-- Script principal (mantém seu script.js que define API_BASE e token) -->
+  <script src="script.js"></script>
+
+  <script>
+    const token = localStorage.getItem('token');
+    if (!token) window.location.href = 'index.html';
+
+    const reservationsList = document.getElementById('reservationsList');
+    const labSelect = document.getElementById('labSelect');
+    const msg = document.getElementById('message');
+
+    const apiLabs = `${API_BASE}/labs`;
+    const apiReservations = `${API_BASE}/reservations`;
+
+    // --- Buscar laboratórios ---
+    async function carregarLabs() {
+      try {
+        const res = await fetch(apiLabs, { headers: { Authorization: `Bearer ${token}` } });
+        if (!res.ok) throw new Error('Erro ao buscar laboratórios');
+        const labs = await res.json();
+        labSelect.innerHTML = '<option value="">Selecione um laboratório</option>';
+        labs.forEach(lab => {
+          const opt = document.createElement('option');
+          opt.value = lab.id;
+          opt.textContent = `${lab.name} — ${lab.location}`;
+          labSelect.appendChild(opt);
+        });
+      } catch {
+        msg.className = 'text-danger';
+        msg.textContent = 'Erro ao carregar laboratórios.';
+      }
+    }
+
+    // --- Buscar reservas do usuário ---
+    async function carregarReservas() {
+      try {
+        const res = await fetch(apiReservations, { headers: { Authorization: `Bearer ${token}` } });
+        if (!res.ok) throw new Error('Erro ao buscar reservas');
+        const reservas = await res.json();
+        reservationsList.innerHTML = '';
+        if (reservas.length === 0) {
+          const li = document.createElement('li');
+          li.className = 'list-group-item';
+          li.textContent = 'Nenhuma reserva encontrada.';
+          reservationsList.appendChild(li);
+          return;
+        }
+        reservas.forEach(r => {
+          const li = document.createElement('li');
+          li.className = 'list-group-item d-flex justify-content-between align-items-center';
+          const inicio = new Date(r.startAt).toLocaleString('pt-BR');
+          const fim = new Date(r.endAt).toLocaleString('pt-BR');
+          const nomeLab = r.Lab?.name || r.lab?.name || `Lab ${r.labId}`;
+          li.textContent = `${nomeLab} — ${inicio} até ${fim}`;
+          reservationsList.appendChild(li);
+        });
+      } catch (err) {
+        msg.className = 'text-danger';
+        msg.textContent = err.message || 'Erro ao carregar reservas.';
+      }
+    }
+
+    // --- Criar reserva ---
+    document.getElementById('reservationForm').addEventListener('submit', async e => {
+      e.preventDefault();
+      const labId = labSelect.value;
+      const startAt = new Date(document.getElementById('startAt').value).toISOString();
+      const endAt = new Date(document.getElementById('endAt').value).toISOString();
+
+      try {
+        const res = await fetch(apiReservations, {
+          method: 'POST',
+          headers: {
+            'Content-Type': 'application/json',
+            Authorization: `Bearer ${token}`
+          },
+          body: JSON.stringify({ labId, startAt, endAt })
+        });
+        if (!res.ok) {
+          const error = await res.json().catch(() => ({}));
+          throw new Error(error.message || 'Erro ao criar reserva.');
+        }
+        msg.className = 'text-success';
+        msg.textContent = 'Reserva criada com sucesso!';
+        e.target.reset();
+        carregarReservas();
+      } catch (err) {
+        msg.className = 'text-danger';
+        msg.textContent = err.message;
+      }
+    });
+
+    // --- Logout ---
+    document.getElementById('logoutBtn').addEventListener('click', () => {
+      localStorage.removeItem('token');
+      window.location.href = 'index.html';
+    });
+
+    // Inicialização
+    carregarLabs();
+    carregarReservas();
+  </script>
+</body>
+</html>

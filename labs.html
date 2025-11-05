@@ -1,0 +1,178 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Laboratórios</title>
+
+  <!-- Bootstrap 5 -->
+  <link 
+    href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css" 
+    rel="stylesheet"
+  />
+
+  <!-- Bootstrap Icons -->
+  <link 
+    rel="stylesheet" 
+    href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.11.1/font/bootstrap-icons.css"
+  />
+
+  <style>
+    body {
+      background: linear-gradient(135deg, #0d6efd, #6610f2);
+      min-height: 100vh;
+      font-family: 'Inter', sans-serif;
+      color: #fff;
+      padding-top: 50px;
+    }
+    .card {
+      border: none;
+      border-radius: 1rem;
+      box-shadow: 0 8px 20px rgba(0, 0, 0, 0.15);
+    }
+    .btn-custom {
+      transition: all 0.25s ease;
+      font-weight: 500;
+    }
+    .btn-custom:hover {
+      transform: translateY(-2px);
+      box-shadow: 0 4px 12px rgba(0, 0, 0, 0.2);
+    }
+    .list-group-item {
+      background-color: #f8f9fa;
+      color: #000;
+      border-radius: 0.5rem;
+      margin-bottom: 0.5rem;
+    }
+    .badge-location {
+      background-color: #0d6efd;
+      color: #fff;
+    }
+  </style>
+</head>
+
+<body>
+  <div class="container">
+    <div class="row justify-content-center">
+
+      <!-- Card principal -->
+      <div class="col-md-8 col-lg-6">
+        <div class="card p-4 bg-light">
+          <h2 class="fw-bold mb-3 text-primary text-center">Laboratórios</h2>
+
+          <!-- Formulário de cadastro -->
+          <div class="card mb-4 shadow-sm p-3">
+            <h5 class="fw-semibold mb-3">Novo Laboratório</h5>
+            <form id="labForm">
+              <div class="mb-3">
+                <input type="text" class="form-control" id="labName" placeholder="Nome do laboratório" required>
+              </div>
+              <div class="mb-3">
+                <input type="text" class="form-control" id="labLocation" placeholder="Localização" required>
+              </div>
+              <button type="submit" class="btn btn-primary w-100 btn-custom">
+                <i class="bi bi-plus-circle me-2"></i>Cadastrar
+              </button>
+            </form>
+            <div id="message" class="mt-3 text-center"></div>
+          </div>
+
+          <!-- Lista de laboratórios -->
+          <div class="card shadow-sm p-3">
+            <h5 class="fw-semibold mb-3">Lista de Laboratórios</h5>
+            <ul id="labsList" class="list-group list-group-flush"></ul>
+          </div>
+
+          <!-- Botão de sair -->
+          <div class="mt-4 d-grid">
+            <button id="logoutBtn" class="btn btn-danger w-100 btn-custom">
+              <i class="bi bi-box-arrow-right me-2"></i>Sair
+            </button>
+          </div>
+        </div>
+      </div>
+
+    </div>
+  </div>
+
+  <!-- Bootstrap JS -->
+  <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js"></script>
+
+  <!-- Script principal (mantém seu script.js que define API_BASE e token) -->
+  <script src="script.js"></script>
+
+  <script>
+    // Verifica login
+    const token = localStorage.getItem('token');
+    if (!token) window.location.href = 'index.html';
+
+    const apiLabs = `${API_BASE}/labs`;
+    const labsList = document.getElementById('labsList');
+    const msg = document.getElementById('message');
+
+    // --- Carregar laboratórios ---
+    async function carregarLabs() {
+      try {
+        const res = await fetch(apiLabs, {
+          headers: { Authorization: `Bearer ${token}` }
+        });
+        if (!res.ok) throw new Error('Falha ao buscar labs');
+
+        const labs = await res.json();
+        labsList.innerHTML = '';
+        labs.forEach(lab => {
+          const li = document.createElement('li');
+          li.className = 'list-group-item d-flex justify-content-between align-items-center';
+          li.textContent = lab.name;
+
+          const badge = document.createElement('span');
+          badge.className = 'badge badge-location rounded-pill';
+          badge.textContent = lab.location;
+
+          li.appendChild(badge);
+          labsList.appendChild(li);
+        });
+      } catch (err) {
+        msg.className = 'text-danger';
+        msg.textContent = 'Erro ao carregar laboratórios.';
+      }
+    }
+
+    carregarLabs();
+
+    // --- Criar laboratório ---
+    document.getElementById('labForm').addEventListener('submit', async e => {
+      e.preventDefault();
+      const name = document.getElementById('labName').value;
+      const location = document.getElementById('labLocation').value;
+
+      try {
+        const res = await fetch(apiLabs, {
+          method: 'POST',
+          headers: {
+            'Content-Type': 'application/json',
+            Authorization: `Bearer ${token}`
+          },
+          body: JSON.stringify({ name, location })
+        });
+
+        if (!res.ok) throw new Error();
+
+        msg.className = 'text-success';
+        msg.textContent = 'Laboratório criado com sucesso!';
+        e.target.reset();
+        carregarLabs();
+      } catch {
+        msg.className = 'text-danger';
+        msg.textContent = 'Erro ao criar laboratório. Verifique se você tem permissão (admin).';
+      }
+    });
+
+    // --- Logout ---
+    document.getElementById('logoutBtn').addEventListener('click', () => {
+      localStorage.removeItem('token');
+      window.location.href = 'index.html';
+    });
+  </script>
+</body>
+</html>
